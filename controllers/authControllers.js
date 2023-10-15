@@ -11,14 +11,14 @@ export const registerController = async (req, res) => {
 
     try {
         if (!name || !email || !password || !phone || !address) return res.json({
-            error: 'please fill all required fields'
+            message: 'please fill all required fields'
         })
 
         // geting user if exists 
         const existingUser = await User.findOne({ email: email })
 
         if (existingUser) return res.status(200).json({
-            success: true,
+            success: false,
             message: `User with Email: ${email} is already Registered Please login`
         })
 
