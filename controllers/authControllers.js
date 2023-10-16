@@ -10,7 +10,8 @@ export const registerController = async (req, res) => {
 
 
     try {
-        if (!name || !email || !password || !phone || !address, !answer) return res.json({
+        if (!name || !email || !password || !phone || !address || !answer) return res.json({
+            success: false,
             message: 'please fill all required fields'
         })
 
@@ -116,7 +117,7 @@ export const forgotPasswordController = async (req, res) => {
     const { email, question, answer, newPassword } = req.body;
 
     try {
-        if (!email, !question, !newPassword) return res.status(404).json({
+        if (!email || !question || !newPassword) return res.status(404).json({
             success: false,
             message: "please fill all required fields"
         })
