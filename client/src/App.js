@@ -11,14 +11,33 @@ import Login from './pages/auth/Login'
 import Dashboard from './pages/user/Dashboard'
 import PrivateRoute from './components/routes/PrivateRoute'
 import ForgotPasssword from './pages/auth/ForgotPassword'
+import AdminDashboard from './pages/admin/AdminDashboard'
+import AdminPrivateRoute from './components/routes/AdminPrivateRoute'
+import CreateCategory from './pages/admin/CreateCategory'
+import CreateProduct from './pages/admin/CreateProduct'
+import Users from './pages/admin/Users'
+import Orders from './pages/user/Orders'
+import Profile from './pages/user/Profile'
+
 const App = () => {
   return (
     <>
       <Routes>
         <Route path='/' element={<HomePage />} />
 
+        {/* user private routes  */}
         <Route path='/dashboard' element={<PrivateRoute />} >
-          <Route path='' element={<Dashboard />} />
+          <Route path='user' element={<Dashboard />} />
+          <Route path='user/orders' element={<Orders />} />
+          <Route path='user/profile' element={<Profile />} />
+        </Route>
+
+        {/* admin private routes  */}
+        <Route path='/dashboard' element={<AdminPrivateRoute />} >
+          <Route path='admin' element={<AdminDashboard />} />
+          <Route path='admin/create-category' element={<CreateCategory />} />
+          <Route path='admin/create-product' element={<CreateProduct />} />
+          <Route path='admin/users' element={<Users />} />
         </Route>
 
         <Route path='/register' element={<Register />} />

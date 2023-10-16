@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { useNavigate, useLocation } from 'react-router-dom'
 
-const Spinner = () => {
-    const [count, setCount] = useState(5)
+const Spinner = ({ path = 'login' }) => {
+    const [count, setCount] = useState(3)
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -12,8 +12,8 @@ const Spinner = () => {
             setCount((prevCount) => --prevCount)
         }, 1000)
 
-        toast.error('Unauthorized user please login.')
-        count === 0 && navigate('/login', {
+
+        count === 0 && navigate(`/${path}`, {
             state: location.pathname
         })
 

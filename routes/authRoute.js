@@ -11,8 +11,14 @@ router.post('/login', loginController)
 
 //forgot password
 router.post('/forgot-password', forgotPasswordController)
-//protected route auth
+
+//protected route auth for user
 router.get('/user-auth', verifyUser, (req, res) => {
+    res.status(200).json({ ok: true })
+})
+
+//protected route auth for admin
+router.get('/admin-auth', verifyUser, verifyAdmin, (req, res) => {
     res.status(200).json({ ok: true })
 })
 
