@@ -6,11 +6,11 @@ import { config } from 'dotenv';
 config()
 
 export const registerController = async (req, res) => {
-    const { name, email, password, phone, address } = req.body;
+    const { name, email, password, phone, address, answer } = req.body;
 
 
     try {
-        if (!name || !email || !password || !phone || !address) return res.json({
+        if (!name || !email || !password || !phone || !address, !answer) return res.json({
             message: 'please fill all required fields'
         })
 
@@ -30,10 +30,11 @@ export const registerController = async (req, res) => {
             email,
             phone,
             address,
-            password: hashedPassword
+            password: hashedPassword,
+            answer
         }).save()
 
-        res.status(201).json({
+        return res.status(201).json({
             success: true,
             message: "User Registered successfully",
             user: {
@@ -46,7 +47,7 @@ export const registerController = async (req, res) => {
         })
     } catch (error) {
         console.log(error)
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             message: "Error in Registration"
         }),
@@ -85,7 +86,7 @@ export const loginController = async (req, res) => {
         if (match) {
             const token = await JWT.sign({ _id: user._id }, process.env.JWT_SECRETE_KEY, { expiresIn: '7d' });
 
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
                 message: "Login successfull",
                 user: {
@@ -107,4 +108,43 @@ export const loginController = async (req, res) => {
             error
         })
     }
+}
+
+//forgot password controller
+export const forgotPasswordController = async (req, res) => {
+    const { email, question, answer, newPassword } = req.body;
+
+    try {
+        if (!email, !question, !newPassword) return res.status(404).json({
+            success: false,
+            message: "please fill all required fields"
+        })
+
+        const user = await User.findOne({ email, answer })
+
+        if (!user) return res.status(404).json({
+            success: false,
+            message: "wrong email or answer"
+        })
+
+        // hasing new password
+        const hashed = await hashPssword(newPassword)
+        await User.findByIdAndUpdate(user._id, {
+            password: hashed
+        })
+
+        return res.status(200).json({
+            success: true,
+            message: "Password Reset Successfully."
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong",
+            error
+        })
+
+    }
+
 }
