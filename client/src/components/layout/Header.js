@@ -3,6 +3,7 @@ import { NavLink, Link } from 'react-router-dom'
 import { GiShoppingBag } from 'react-icons/gi'
 import { useAuth } from '../../context/auth'
 import toast from 'react-hot-toast'
+import SearchForm from '../form/SearchForm'
 
 const Header = () => {
     const [auth, setAuth] = useAuth()
@@ -26,7 +27,9 @@ const Header = () => {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
                         <Link className="navbar-brand" ><GiShoppingBag /> ShopFusion</Link>
+
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <SearchForm />
                             <li className="nav-item">
                                 <NavLink className="nav-link " aria-current="page" to='/'>Home</NavLink>
                             </li>
