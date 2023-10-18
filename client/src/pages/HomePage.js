@@ -152,7 +152,7 @@ const HomePage = () => {
                                         {p.description.substring(0, 30)}...
                                     </p>
                                     <p className="card-text"> $ {p.price}</p>
-                                    <Link to={`/dashboard/user/product/${p.slug}`} class="btn btn-primary ms-1" >More Details</Link>
+                                    <Link to={`/product/${p.slug}`} class="btn btn-primary ms-1" >More Details</Link>
                                     <button class="btn btn-secondary ms-1">ADD TO CART</button>
                                 </div>
                             </div>

@@ -76,7 +76,7 @@ const ProductDetails = () => {
                                 <p className="card-text"> $ {p.price}</p>
                                 <button
                                     className="btn btn-primary ms-1"
-                                    onClick={() => navigate(`/dashboard/user/product/${p.slug}`)}
+                                    onClick={() => navigate(`/product/${p.slug}`)}
                                 >
                                     More Details
                                 </button>
