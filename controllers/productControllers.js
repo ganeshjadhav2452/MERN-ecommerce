@@ -77,7 +77,7 @@ export const getProductsController = async (req, res) => {
 
 export const getSingleProductController = async (req, res) => {
     const { slug } = req.params;
-    console.log("this is slug", slug);
+
     try {
         const product = await Product.findOne({ slug })
             .populate("category")

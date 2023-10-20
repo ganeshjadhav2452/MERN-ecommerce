@@ -20,7 +20,7 @@ const CategoryProduct = () => {
             );
             setProducts(data?.products);
             setCategory(data?.products[0].category);
-            console.log('this is category', data)
+
         } catch (error) {
             console.log(error);
         }

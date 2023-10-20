@@ -77,7 +77,7 @@ const HomePage = () => {
     // filter by cat
     const handleFilter = (value, id) => {
         let all = [...checked];
-        console.log(all)
+
         if (value) {
             all.push(id);
         } else {
