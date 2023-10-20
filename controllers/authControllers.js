@@ -3,6 +3,7 @@ import { comparePassword, hashPssword } from '../helpers/authHelper.js';
 import User from '../models/userModel.js'
 import JWT from 'jsonwebtoken'
 import { config } from 'dotenv';
+import orderModel from '../models/orderModel.js';
 config()
 
 export const registerController = async (req, res) => {
@@ -149,4 +150,57 @@ export const forgotPasswordController = async (req, res) => {
 
     }
 
+}
+
+// update profile
+
+export const updateUserProfileController = async (req, res) => {
+    const { name, address, email, phone } = req.body;
+    try {
+        const user = await User.findById(req.userId)
+
+        // updating user 
+        const updatedUser = await User.findByIdAndUpdate(req.userId, {
+            name: name || user.name,
+            address: address || user.address,
+            phone: phone || user.phone
+        }, { new: true })
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            updatedUser
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong while updating profile",
+            error
+        })
+
+    }
+}
+
+// orders
+
+export const getOrdersController = async (req, res) => {
+
+    try {
+        const orders = await orderModel.find({ buyer: req.userId }).populate('products', '-photo').populate('buyer', "name")
+
+        return res.status(200).json({
+            success: true,
+            message: "Profile updated successfully",
+            orders
+        })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({
+            success: false,
+            message: "error while getting orders",
+            error
+        })
+
+    }
 }

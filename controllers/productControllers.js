@@ -1,7 +1,19 @@
+import { config } from "dotenv";
+config()
 import slugify from "slugify";
 import Product from "../models/ProductModel.js";
 import Category from '../models/CategoryModel.js'
 import fs from "fs";
+import braintree from "braintree";
+import orderModel from '../models/orderModel.js'
+// payment gateway Credential
+var gateway = new braintree.BraintreeGateway({
+    environment: braintree.Environment.Sandbox,
+    merchantId: process.env.BT_MERCHANT_ID,
+    publicKey: process.env.BTL_PUBLIC_ID,
+    privateKey: process.env.BT_PRIVATE_KEY,
+});
+
 export const createProductController = async (req, res) => {
     const { name, quantity, slug, shipping, description, price, category } =
         req.fields;
@@ -334,3 +346,64 @@ export const getProductCategoryWiseController = async (req, res) => {
 };
 
 
+// payment gateway
+
+export const braintreeTokenController = async (req, res) => {
+    try {
+        gateway.clientToken.generate({}, (err, response) => {
+            if (err) {
+                res.status(500).json(err)
+            } else {
+                res.status(200).json(response)
+            }
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: "error while getting token",
+            error,
+        });
+    }
+}
+
+// payment controller
+
+export const paymentController = async (req, res) => {
+    try {
+
+        const { nonce, cart } = req.body;
+        let total = 0;
+        cart.map((i) => {
+            total += i.price;
+        });
+        let newTransaction = gateway.transaction.sale(
+            {
+                amount: total,
+                paymentMethodNonce: nonce,
+                options: {
+                    submitForSettlement: true,
+                },
+            },
+            function (error, result) {
+                if (result) {
+                    const order = new orderModel({
+                        products: cart,
+                        payment: result,
+                        buyer: req.userId,
+                    }).save();
+                    res.json({ ok: true });
+                } else {
+                    res.status(500).send(error);
+                }
+            }
+        );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({
+            success: false,
+            message: "error while processing your payment",
+            error,
+        });
+    }
+}

@@ -5,10 +5,12 @@ import { useAuth } from '../../context/auth'
 import toast from 'react-hot-toast'
 import SearchForm from '../form/SearchForm'
 import useCategory from '../../hooks/useCategory'
+import { useCart } from '../../context/cart'
 
 const Header = () => {
     const [auth, setAuth] = useAuth()
     const categories = useCategory();
+    const [cart] = useCart()
     const handleLogout = () => {
         localStorage.removeItem('auth')
         setAuth({
@@ -98,7 +100,7 @@ const Header = () => {
                                 </li>
                             </>)}
                             <li className="nav-item">
-                                <NavLink className="nav-link " to='/cart'>Cart {0}</NavLink>
+                                <NavLink className="nav-link " to='/cart'>Cart {cart?.length}</NavLink>
                             </li>
                         </ul>
 

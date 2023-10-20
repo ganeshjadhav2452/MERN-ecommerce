@@ -1,5 +1,5 @@
 import express from 'express'
-import { registerController, loginController, forgotPasswordController } from '../controllers/authControllers.js';
+import { registerController, loginController, forgotPasswordController, updateUserProfileController, getOrdersController } from '../controllers/authControllers.js';
 import { verifyUser, verifyAdmin } from '../middlewares/authMiddleware.js';
 const router = express.Router()
 
@@ -22,7 +22,10 @@ router.get('/admin-auth', verifyUser, verifyAdmin, (req, res) => {
     res.status(200).json({ ok: true })
 })
 
-router.get('/test', verifyUser, verifyAdmin, (req, res) => {
-    res.send('entered in controller successfully ')
-})
+//update profile
+
+router.put('/profile', verifyUser, updateUserProfileController)
+
+// get orders
+router.get('/orders', verifyUser, getOrdersController)
 export default router;

@@ -5,6 +5,8 @@ import axios from "axios";
 import { Checkbox, Radio } from "antd";
 import { Prices } from "../components/Prices";
 import { Link } from "react-router-dom";
+import { useCart } from "../context/cart";
+import toast from "react-hot-toast";
 const HomePage = () => {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -13,6 +15,7 @@ const HomePage = () => {
     const [total, setTotal] = useState(0);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
+    const [cart, setCart] = useCart()
 
     //get all cat
     const getAllCategory = async () => {
@@ -81,6 +84,11 @@ const HomePage = () => {
         }
         setChecked(all);
     };
+
+    // add to cart
+    const addToCartHandler = async () => {
+
+    }
     useEffect(() => {
         if (!checked.length || !radio.length) getAllProducts();
     }, [checked.length, radio.length]);
@@ -153,7 +161,10 @@ const HomePage = () => {
                                     </p>
                                     <p className="card-text"> $ {p.price}</p>
                                     <Link to={`/product/${p.slug}`} class="btn btn-primary ms-1" >More Details</Link>
-                                    <button class="btn btn-secondary ms-1">ADD TO CART</button>
+                                    <button class="btn btn-secondary ms-1" onClick={() => {
+                                        setCart([...cart, p])
+                                        toast.success('Item added to cart')
+                                    }}>ADD TO CART</button>
                                 </div>
                             </div>
                         ))}

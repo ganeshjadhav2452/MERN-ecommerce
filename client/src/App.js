@@ -24,6 +24,7 @@ import Search from './pages/Search'
 import ProductDetails from './pages/ProductDetails'
 import Categories from './pages/Categories'
 import CategoryProduct from './pages/CategoryProduct'
+import CartPage from './pages/CartPage'
 
 const App = () => {
   return (
@@ -35,7 +36,7 @@ const App = () => {
         <Route path="/categories" element={<Categories />} />
         <Route path='/search' element={<Search />} />
         <Route path='/products' element={<Products />} />
-
+        <Route path="/cart" element={<CartPage />} />
 
         {/* user private routes  */}
         <Route path='/dashboard' element={<PrivateRoute />} >
