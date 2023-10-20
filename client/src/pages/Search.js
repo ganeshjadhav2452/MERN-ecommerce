@@ -1,6 +1,7 @@
 import React from "react";
 import Layout from "./../components/layout/Layout";
 import { useSearch } from "../context/search";
+import { Link } from "react-router-dom";
 const Search = () => {
     const [search, setSearch] = useSearch();
 
@@ -28,7 +29,7 @@ const Search = () => {
                                         {p.description.substring(0, 30)}...
                                     </p>
                                     <p className="card-text"> $ {p.price}</p>
-                                    <button class="btn btn-primary ms-1">More Details</button>
+                                    <Link to={`/product/${p.slug}`} class="btn btn-primary ms-1">More Details</Link>
                                     <button class="btn btn-secondary ms-1">ADD TO CART</button>
                                 </div>
                             </div>
