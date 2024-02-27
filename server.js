@@ -25,15 +25,15 @@ app.use(morgan('dev'))
 app.use('/api/v1/auth', authRoutes)
 app.use('/api/v1/category', categoryRoutes)
 app.use('/api/v1/product', ProductRoutes)
-app.use(express.static(path.join(__dirname, "./client/build")))
+// app.use(express.static(path.join(__dirname, "./client/build")))
 
-// inital call
-app.use('*', function (req, res) {
-    res.sendFile(path.join(__dirname, "./client/build/index.html"))
+// // inital call
+// app.use('*', function (req, res) {
+//     res.sendFile(path.join(__dirname, "./client/build/index.html"))
 
-})
+// })
 
-//port
+// //port
 
 
 app.listen(process.env.PORT, () => console.log(`server started on port ${process.env.PORT}`.bgBlack.yellow))

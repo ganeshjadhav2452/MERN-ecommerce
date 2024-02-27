@@ -22,7 +22,7 @@ const SearchForm = () => {
     }
     return (
         <>
-            <form className="d-flex me-5" role="search" onSubmit={handleSubmit}>
+            <form className="d-flex me-5 flex-style-600 " role="search" onSubmit={handleSubmit}>
                 <input
                     className="form-control me-2"
                     type="search"
@@ -31,7 +31,7 @@ const SearchForm = () => {
                     value={search.keyword}
                     onChange={(e) => setSearch({ ...search, keyword: e.target.value })}
                 />
-                <button className="btn btn-outline-success" type="submit">
+                <button className="btn btn-outline-success mt-2" type="submit">
                     Search
                 </button>
             </form>

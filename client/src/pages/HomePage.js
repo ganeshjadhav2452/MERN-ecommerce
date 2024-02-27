@@ -18,6 +18,7 @@ const HomePage = () => {
     const [loading, setLoading] = useState(false);
     const [cart, setCart] = useCart()
 
+    console.log(Prices)
     //get all cat
     const getAllCategory = async () => {
         try {
@@ -36,6 +37,7 @@ const HomePage = () => {
     }, []);
     //get products
     const getAllProducts = async () => {
+        console.log('this is page number', page)
         try {
             setLoading(true);
             const { data } = await axios.get(`/api/v1/product/product-list/${page}`);
@@ -81,16 +83,15 @@ const HomePage = () => {
         if (value) {
             all.push(id);
         } else {
+            console.log(all)
             all = all.filter((c) => c !== id);
         }
         setChecked(all);
     };
 
-    // add to cart
-    const addToCartHandler = async () => {
 
-    }
     useEffect(() => {
+
         if (!checked.length || !radio.length) getAllProducts();
     }, [checked.length, radio.length]);
 
@@ -113,7 +114,7 @@ const HomePage = () => {
     return (
         <Layout title={"ALl Products - Best offers "}>
             <div className="container-fluid row mt-3">
-                <div className="col-md-2">
+                <div className="col-md-2 filter">
                     <h4 className="text-center">Filter By Category</h4>
                     <div className="d-flex flex-column">
                         {categories?.map((c) => (
@@ -145,9 +146,9 @@ const HomePage = () => {
                         </button>
                     </div>
                 </div>
-                <div className="col-md-10">
+                <div className="col-md-10 ">
                     <h1 className="text-center">All Products</h1>
-                    <div className="d-flex flex-wrap">
+                    <div className="d-flex flex-wrap all-products">
                         {products?.map((p) => (
                             <div className="card m-2" style={{ width: "18rem" }}>
                                 <img
@@ -174,10 +175,8 @@ const HomePage = () => {
                         {products && products.length < total && (
                             <button
                                 className="btn btn-warning"
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    setPage(page + 1);
-                                }}
+                                onClick={() => setPage(page + 1)
+                                }
                             >
                                 {loading ? "Loading ..." : "Loadmore"}
                             </button>
@@ -185,7 +184,7 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-        </Layout>
+        </Layout >
     );
 };
 

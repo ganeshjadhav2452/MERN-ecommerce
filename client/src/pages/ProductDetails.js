@@ -38,7 +38,7 @@ const ProductDetails = () => {
     };
     return (
         <Layout>
-            <div className="row container mt-2 d-flex align-items-center justify-content-center">
+            <div className=" flex-style-600 row container mt-2 d-flex align-items-center justify-content-center">
                 <div className="col-md-4 ">
                     <img
                         src={`/api/v1/product/product-photo/${product._id}`}
@@ -48,8 +48,8 @@ const ProductDetails = () => {
                         width={"350px"}
                     />
                 </div>
-                <div className="col-md-6 ">
-                    <h1 className="text-center">Product Details</h1>
+                <div className="col-md-6 flex-style-600">
+                    <h1 className="text-center ">Product Details</h1>
                     <h6>Name : {product.name}</h6>
                     <h6>Description : {product.description}</h6>
                     <h6>Price : {product.price}</h6>

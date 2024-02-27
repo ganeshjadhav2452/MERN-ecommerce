@@ -4,13 +4,13 @@ const Footer = () => {
     return (
 
         <div className="container-fluid bg-dark text-light footer">
-            <footer className="container py-4">
-                <div className="row">
-                    <div className="col-md-4 p-0">
+            <footer className="container py-4 ">
+                <div className="row ">
+                    <div className="col-md-4 p-0 flex-style-600">
                         <h3>About Us</h3>
                         <p>Explore our e-commerce haven, where quality meets affordability. Shop effortlessly through our diverse product selection, secured with user-friendly features. We prioritize your satisfaction and offer seamless, secure payment options. Join us to redefine your online shopping experience.</p>
                     </div>
-                    <div className="col-md-2">
+                    <div className="col-md-2 flex-style-600">
                         <h3>Contact Us</h3>
                         <p>123 Main Street, City<br />
                             Email: info@example.com<br />
@@ -24,7 +24,7 @@ const Footer = () => {
                             <li><a target="_blank" href="https://www.instagram.com"><i className="fab fa-instagram"></i> Instagram</a></li>
                         </ul>
                     </div>
-                    <div className="col-md-3">
+                    <div className="col-md-3 flex-style-600">
                         <h3>More And Privacy</h3>
                         <ul className="list-unstyled d-flex flex-column text-center">
                             <Link to={'/policy'}>Privacy Policy</Link>

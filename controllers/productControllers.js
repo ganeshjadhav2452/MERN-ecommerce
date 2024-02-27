@@ -241,9 +241,10 @@ export const productCountController = async (req, res) => {
 // get product list based on page
 
 export const productListController = async (req, res) => {
-    const { page } = req.params.page ? req.params.page : 1;
-    const perPage = 6;
+    const { page } = req.params.page ? req.params : 1;
+    const perPage = 3;
     const skipvalue = (page - 1) * perPage;
+    console.log('this is pagenumb', page)
     try {
         const products = await Product.find({})
             .select("-photo")
